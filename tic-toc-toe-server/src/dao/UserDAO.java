@@ -44,8 +44,8 @@ public class UserDAO extends DAO{
                         rs.getInt(7),
                         rs.getInt(8),
                         (rs.getInt(9) != 0),
-                        (rs.getInt(10) != 0),
-                        getRank(rs.getInt(1)));    
+                        (rs.getInt(10) != 0)
+                     );    
             }
             
         } catch (SQLException e) {
@@ -72,9 +72,8 @@ public class UserDAO extends DAO{
                         rs.getInt(7),
                         rs.getInt(8),
                         (rs.getInt(9) != 0),
-                        (rs.getInt(10) != 0),
-                        getRank(rs.getInt(1)));
-                        
+                        (rs.getInt(10) != 0)
+                );
             }
             
         } catch (SQLException e) {
@@ -200,163 +199,6 @@ public class UserDAO extends DAO{
         }
     }
     
-    public List<User> getListFriend(int ID) {
-        List<User> ListFriend = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT User.ID, User.NickName, User.IsOnline, User.IsPlaying\n"
-                    + "FROM user\n"
-                    + "WHERE User.ID IN (\n"
-                    + "	SELECT ID_User1\n"
-                    + "    FROM friend\n"
-                    + "    WHERE ID_User2 = ?\n"
-                    + ")\n"
-                    + "OR User.ID IN(\n"
-                    + "	SELECT ID_User2\n"
-                    + "    FROM friend\n"
-                    + "    WHERE ID_User1 = ?\n"
-                    + ")");
-            preparedStatement.setInt(1, ID);
-            preparedStatement.setInt(2, ID);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                ListFriend.add(new User(rs.getInt(1),
-                        rs.getString(2),
-                        (rs.getInt(3)==1),
-                        (rs.getInt(4))==1));
-            }
-            ListFriend.sort(new Comparator<User>(){
-                @Override
-                public int compare(User o1, User o2) {
-                    if(o1.getIsOnline()&&!o2.getIsOnline())
-                        return -1;
-                    if(o1.getIsPlaying()&&!o2.getIsOnline())
-                        return -1;
-                    if(!o1.getIsPlaying()&&o1.getIsOnline()&&o2.getIsPlaying()&&o2.getIsOnline())
-                        return -1;
-                    return 0;
-                }
-                
-            });
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return ListFriend;
-    }
-
-    public boolean checkIsFriend(int ID1, int ID2) {
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT Friend.ID_User1\n"
-                    + "FROM friend\n"
-                    + "WHERE (ID_User1 = ? AND ID_User2 = ?)\n"
-                    + "OR (ID_User1 = ? AND ID_User2 = ?)");
-            preparedStatement.setInt(1, ID1);
-            preparedStatement.setInt(2, ID2);
-            preparedStatement.setInt(3, ID2);
-            preparedStatement.setInt(4, ID1);
-            ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next()) {
-                return true;
-            }
-            
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return false;
-    }
-    
-    public void addFriendShip(int ID1, int ID2){
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO friend(ID_User1, ID_User2)\n" +
-"VALUES (?,?)");
-            preparedStatement.setInt(1, ID1);
-            preparedStatement.setInt(2, ID2);
-            System.out.println(preparedStatement);
-            preparedStatement.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    public void removeFriendship(int ID1, int ID2){
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM friend\n" +
-"WHERE (ID_User1 = ? AND ID_User2 = ?)\n" +
-"OR(ID_User1 = ? AND ID_User2 = ?)");
-            preparedStatement.setInt(1, ID1);
-            preparedStatement.setInt(2, ID2);
-            preparedStatement.setInt(3, ID2);
-            preparedStatement.setInt(4, ID1);
-            System.out.println(preparedStatement);
-            preparedStatement.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public int getRank(int ID) {
-        int rank = 1;
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT user.ID\n"
-                    + "FROM user\n"
-                    + "ORDER BY (user.NumberOfGame+user.numberOfDraw*5+user.NumberOfWin*10) DESC");
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                if(rs.getInt(1)==ID)
-                    return rank;
-                rank++;
-            }
-            
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return -1;
-    }
-    public List<User> getUserStaticRank() {
-        List<User> list = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT *\n"
-                    + "FROM user\n"
-                    + "ORDER BY(user.NumberOfGame+user.numberOfDraw*5+user.NumberOfWin*10) DESC\n"
-                    + "LIMIT 8");
-            System.out.println(preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                list.add(new User(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getInt(8),
-                        (rs.getInt(9) != 0),
-                        (rs.getInt(10) != 0),
-                        getRank(rs.getInt(1))));
-            }
-            
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    public void makeFriend(int ID1, int ID2) {
-        try {
-            PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO friend(ID_User1,ID_User2)\n"
-                    + "VALUES(?,?)");
-            preparedStatement.setInt(1, ID1);
-            preparedStatement.setInt(2, ID2);
-            System.out.println(preparedStatement);
-            preparedStatement.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public int getNumberOfWin(int ID) {
         try {
             PreparedStatement preparedStatement = con.prepareStatement("SELECT user.NumberOfWin\n"

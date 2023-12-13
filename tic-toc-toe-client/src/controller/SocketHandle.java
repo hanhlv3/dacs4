@@ -26,31 +26,8 @@ public class SocketHandle implements Runnable {
     private BufferedReader is;
     private Socket socketOfClient;
     private int ID_Server;
-    public List<User> getListUser(String[] message){
-        List<User> friend = new ArrayList<>();
-        for(int i=1; i<message.length; i=i+4){
-            friend.add(new User(Integer.parseInt(message[i]),
-                    message[i+1],
-                    message[i+2].equals("1"),
-                    message[i+3].equals("1")));
-        }
-        return friend;
-    }
-    public List<User> getListRank(String[] message){
-        List<User> friend = new ArrayList<>();
-        for(int i=1; i<message.length; i=i+9){
-            friend.add(new User(Integer.parseInt(message[i]),
-                message[i+1],
-                message[i+2],
-                message[i+3],
-                message[i+4],
-                Integer.parseInt(message[i+5]),
-                Integer.parseInt(message[i+6]),
-                Integer.parseInt(message[i+7]),
-                Integer.parseInt(message[i+8])));
-        }
-        return friend;
-    }
+   
+    
     public User getUserFromString(int start, String[] message){
         return new User(Integer.parseInt(message[start]),
                 message[start+1],
@@ -59,8 +36,8 @@ public class SocketHandle implements Runnable {
                 message[start+4],
                 Integer.parseInt(message[start+5]),
                 Integer.parseInt(message[start+6]),
-                Integer.parseInt(message[start+7]),
-                Integer.parseInt(message[start+8]));
+                Integer.parseInt(message[start+7])
+                );
     }
     @Override
     public void run() {
@@ -192,28 +169,8 @@ public class SocketHandle implements Runnable {
                     if(messageSplit.length==3)
                         Client.waitingRoomFrm.setRoomPassword("Mật khẩu phòng: "+messageSplit[2]);
                 }
-                //Xử lý yêu cầu kết bạn tới
-                if(messageSplit[0].equals("make-friend-request")){
-                    int ID = Integer.parseInt(messageSplit[1]);
-                    String nickname = messageSplit[2];
-                    Client.openView(Client.View.FRIENDREQUEST, ID, nickname);
-                }
-                //Xử lý khi nhận được yêu cầu thách đấu
-                if(messageSplit[0].equals("duel-notice")){
-                    int res = JOptionPane.showConfirmDialog(Client.getVisibleJFrame(), "Bạn nhận được lời thách đấu của "+messageSplit[2]+" (ID="+messageSplit[1]+")", "Xác nhận thách đấu", JOptionPane.YES_NO_OPTION);
-                    if(res == JOptionPane.YES_OPTION){
-                        Client.socketHandle.write("agree-duel,"+messageSplit[1]);
-                    }
-                    else{
-                        Client.socketHandle.write("disagree-duel,"+messageSplit[1]);
-                    }
-                }
-                //Xử lý không đồng ý thách đấu
-                if(messageSplit[0].equals("disagree-duel")){
-                    Client.closeAllViews();
-                    Client.openView(Client.View.HOMEPAGE);
-                    JOptionPane.showMessageDialog(Client.homePageFrm, "Đối thủ không đồng ý thách đấu");
-                }
+                
+                
                 //Xử lý đánh một nước trong ván chơi
                 if(messageSplit[0].equals("caro")){
                     Client.gameClientFrm.addCompetitorMove(messageSplit[1], messageSplit[2]);

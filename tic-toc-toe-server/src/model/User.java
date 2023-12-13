@@ -20,12 +20,9 @@ public class User {
     private int numberOfDraw;
     private boolean isOnline;
     private boolean isPlaying;
-    private int rank;
+   
 
-    public int getRank() {
-        return rank;
-    }
-
+   
     public User() {
     }
 
@@ -33,27 +30,7 @@ public class User {
         this.ID = ID;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public User(int ID, String username, String password, String nickname, String avatar, int numberOfGame, int numberOfwin, int numberOfDraw, boolean isOnline, boolean isPlaying, int rank) {
-        this.ID = ID;
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.avatar = avatar;
-        this.numberOfGame = numberOfGame;
-        this.numberOfwin = numberOfwin;
-        this.numberOfDraw = numberOfDraw;
-        this.isOnline = isOnline;
-        this.isPlaying = isPlaying;
-        this.rank = rank;
-    }
-    
-    
-    
-    
+     
     public User(int ID, String username, String password, String nickname, String avatar, int numberOfGame, int numberOfwin, int numberOfDraw, boolean isOnline, boolean isPlaying) {
         this.ID = ID;
         this.username = username;

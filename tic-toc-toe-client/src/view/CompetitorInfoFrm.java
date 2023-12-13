@@ -25,31 +25,25 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
      * Creates new form CompetitorInfoFrm
      */
     public CompetitorInfoFrm(User user) {
-        try {
-            initComponents();
-            this.user = user;
-            this.setTitle("Caro Game Nhóm 5");
-            this.setIconImage(new ImageIcon("assets/image/caroicon.png").getImage());
-            this.setResizable(false);
-            this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            this.setLocationRelativeTo(null);
-            jLabel6.setIcon(new ImageIcon("assets/avatar/"+user.getAvatar()+".jpg"));
-            jLabel7.setText(user.getNickname());
-            jLabel8.setText(""+user.getNumberOfGame());
-            jLabel9.setText(""+user.getNumberOfwin());
-            jLabel17.setText(""+user.getNumberOfDraw());
-            jLabel13.setText(""+user.getRank());
-            if(user.getNumberOfGame()==0){
-                jLabel15.setText("-");
-            }
-            else{
-                jLabel15.setText(String.format("%.2f",(float)user.getNumberOfwin()/user.getNumberOfGame()*100)+"%");
-            }
-            jLabel12.setText(""+(user.getNumberOfwin()*10+user.getNumberOfGame()));
-            Client.socketHandle.write("check-friend,"+user.getID());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        initComponents();
+        this.user = user;
+        this.setTitle("");
+        this.setIconImage(new ImageIcon("assets/image/caroicon.png").getImage());
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        jLabel6.setIcon(new ImageIcon("assets/avatar/"+user.getAvatar()+".jpg"));
+        jLabel7.setText(user.getNickname());
+        jLabel8.setText(""+user.getNumberOfGame());
+        jLabel9.setText(""+user.getNumberOfwin());
+        jLabel17.setText(""+user.getNumberOfDraw());
+        if(user.getNumberOfGame()==0){
+            jLabel15.setText("-");
         }
+        else{
+            jLabel15.setText(String.format("%.2f",(float)user.getNumberOfwin()/user.getNumberOfGame()*100)+"%");
+        }
+        jLabel12.setText(""+(user.getNumberOfwin()*10+user.getNumberOfGame()));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,15 +59,12 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -109,10 +100,6 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
 
         jLabel4.setText("Số ván thắng");
 
-        jLabel5.setForeground(new java.awt.Color(0, 51, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Các bạn hiện đang là bạn bè");
-
         jLabel7.setText("{nickname}");
 
         jLabel8.setText("{sovachoi}");
@@ -121,11 +108,7 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
 
         jLabel10.setText("Điểm");
 
-        jLabel11.setText("Thứ hạng");
-
         jLabel12.setText("{diem}");
-
-        jLabel13.setText("{thuhang}");
 
         jLabel14.setText("Tỉ lệ thắng");
 
@@ -140,7 +123,6 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -151,9 +133,7 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(53, 53, 53))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(55, 55, 55)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,15 +148,13 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,23 +178,17 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11))
+                        .addComponent(jLabel10))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel13)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addContainerGap())
+                        .addComponent(jLabel12)))
+                .addGap(68, 68, 68))
         );
 
         pack();
@@ -226,9 +198,7 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -236,7 +206,6 @@ public class CompetitorInfoFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

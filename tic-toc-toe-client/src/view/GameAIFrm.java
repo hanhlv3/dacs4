@@ -34,7 +34,7 @@ public class GameAIFrm extends javax.swing.JFrame {
     
     public GameAIFrm() {
         initComponents();
-        this.setTitle("Caro Game vs AI");
+        this.setTitle("Play with AI");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
